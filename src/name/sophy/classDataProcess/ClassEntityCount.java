@@ -1,4 +1,4 @@
-package name.sophy.classdataprocess;
+package name.sophy.classDataProcess;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -6,15 +6,12 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.concurrent.CountDownLatch;
-
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.util.FileManager;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 /*
  * 统计每个class对应多少个不同的实体

@@ -1,4 +1,4 @@
-package name.sophy.querylog;
+package name.sophy.queryLogProcess;
 
 import java.io.UnsupportedEncodingException;
 

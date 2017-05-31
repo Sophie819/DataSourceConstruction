@@ -1,4 +1,4 @@
-package name.sophy.classdataprocess;
+package name.sophy.classDataProcess;
 
 import java.io.InputStream;
 import java.util.ArrayList;

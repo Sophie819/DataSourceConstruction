@@ -1,4 +1,4 @@
-package name.sophy.querylog;
+package name.sophy.queryLogProcess;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import org.apache.jena.query.ResultSet;
 import org.apache.jena.query.ResultSetFactory;
 import java.net.URL;
@@ -20,7 +19,7 @@ import java.net.URLConnection;
  * 记录所有存在查询结果的log
  * 注意：考虑如果查询结果超过10000条，http请求的方法就行不通了，就要使用jdbc查询的方法了
  */
-public class LogDecoder_1 {
+public class LogDecoder {
 	private HashMap<Integer, String> fullIdUrlMap = new HashMap<Integer, String>();	//存储文件中所有的select语句对应的line和query(未解码)
 	private int fullLine = 0;	//1025818;	
 	
@@ -76,14 +75,14 @@ public class LogDecoder_1 {
 	}
 	
 	public static void main(String[] args) {
-		LogDecoder_1 logDecoder = new LogDecoder_1();
+		LogDecoder logDecoder = new LogDecoder();
 		logDecoder.readFile("usewod/access.log-20150927");  //读取文件，存储所有的query
 		System.out.println("Finish reading file.");
 		logDecoder.executeSparqlQuery();					//进行sparql查询，并存储相应结果
 		System.out.println("Finish sparql query.");
-		logDecoder.writeToFile("usewod/result-log-20150927-1.txt", logDecoder.getIdArrayList(), logDecoder.getIdUrlMap(), logDecoder.getIdResultMap());
+		logDecoder.writeToFile("usewod/result-log-20150927.txt", logDecoder.getIdArrayList(), logDecoder.getIdUrlMap(), logDecoder.getIdResultMap());
 		System.out.println("Finish result.txt.");
-		logDecoder.writeToFile("usewod/wrong-query-log-20150927-1.txt", logDecoder.getWrongIdArrayList(), logDecoder.getWrongIdUrlMap());
+		logDecoder.writeToFile("usewod/wrong-query-log-20150927.txt", logDecoder.getWrongIdArrayList(), logDecoder.getWrongIdUrlMap());
 		System.out.println("Finish wrong query.txt.");
 	}
 	
@@ -120,7 +119,7 @@ public class LogDecoder_1 {
 	}
 	
 	public void executeSparqlQuery(){
-		for(int line = 500001; line <= fullLine; line++){
+		for(int line = 1; line <= 500000; line++){
 			if(fullIdUrlMap.get(line) != null){
 				String undecoderedQueryStr = fullIdUrlMap.get(line);
 				try {
@@ -187,8 +186,5 @@ public class LogDecoder_1 {
 		catch (IOException e) {
             e.printStackTrace();
         }
-	}
-	
-	
-   
+	} 
 }
